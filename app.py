@@ -80,7 +80,6 @@ class InferlessPythonModel:
         project_id = inputs.pop("project_id")
         inputs["hires_upscale"] = float(inputs["hires_upscale"])
         inputs["hires_denoise"] = float(inputs["hires_denoise"])
-        inputs["hires_denoise"] = float(inputs["hires_denoise"])
         inputs["frame_load_cap"] = int(inputs["frame_load_cap"])
         inputs["input_width"] = int(inputs["input_width"])
         inputs["input_height"] = int(inputs["input_height"])
