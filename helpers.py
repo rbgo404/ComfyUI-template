@@ -13,7 +13,7 @@ import time
 import requests
 from PIL import Image
 
-COMFYUI_DIR = "/var/nfs-mount/ComfyUI-vol/ComfyUI"
+COMFYUI_DIR = "/var/nfs-mount/ComfyUI-VOL/ComfyUI"
 BASE64_PREAMBLE = "data:image/png;base64,"
 
 
