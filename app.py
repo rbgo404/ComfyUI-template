@@ -41,7 +41,7 @@ class InferlessPythonModel:
         self.aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
         
         if not os.path.exists(self.directory_path+"/ComfyUI"):
-            subprocess.run(["wget", "https://github.com/rbgo404/Files/raw/main/build.sh"])
+            subprocess.run(["wget", "https://github.com/rbgo404/ComfyUI-template/raw/main/build.sh"])
             subprocess.run(["bash", "build.sh"], check=True)
         
         self._data_dir = self.directory_path+"/data"
