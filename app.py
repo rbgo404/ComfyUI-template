@@ -34,13 +34,18 @@ def run_comfyui_in_background():
 
 class InferlessPythonModel:
     def initialize(self):
-        directory_path = "/var/nfs-mount/ComfyUI-VOL/ComfyUI"
+        self.directory_path = "/var/nfs-mount/ComfyUI-VOL"
         
-        if not os.path.exists(directory_path):
+        self.bucket_name = os.getenv('BUCKET_NAME')
+        self.bucket_region = os.getenv('BUCKET_REGION')        
+        self.aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+        self.aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+        
+        if not os.path.exists(self.directory_path+"/ComfyUI"):
             subprocess.run(["wget", "https://github.com/rbgo404/Files/raw/main/build.sh"])
             subprocess.run(["bash", "build.sh"], check=True)
         
-        self._data_dir = "/var/nfs-mount/ComfyUI-VOL/data"
+        self._data_dir = self.directory_path+"/data"
         self._model = None
         self.ws = None
         self.json_workflow = None
@@ -73,6 +78,7 @@ class InferlessPythonModel:
         request.headers.pop('Expect', None)
 
     def infer(self, inputs):
+
         template_values = {
                             'input_video_url': 'https://sukuru.s3.amazonaws.com/videos/db76940a-db5f-4578-8f87-9db41af32647.MP4',
                             'frame_load_cap': 60,
@@ -113,39 +119,32 @@ class InferlessPythonModel:
         print('outputs',outputs)
         for node_id in outputs:
             for item in outputs[node_id]:
-                file_name = item.get("filename")
+                file_name = self.directory_path+item.get("filename")
                 file_data = item.get("data")
                 print('file_name, file_data', file_name, file_data)
                 output = convert_outputs_to_base64(
                     node_id=node_id, file_name=file_name, file_data=file_data
                 )
                 result.append(output)
-                print('result', result)
+                # print('result', result)
 
-        # return {"result": result}
+        #return {"result": result}
 
         projectid = str("inferless")
         # result = [{'node_id': '449', 'data': 'ComfyUI/output/output_video_00001.mp4', 'format': 'mp4'}]        
-
-
-        bucket_name = 'model-bucket-s3-import'
-
-        # Define the project ID and file path
-        local_file_path = result[0]['data']  # Assuming you want the first item in the list
-        s3_file_name = f'{projectid}.mp4'  # New name for the file in S3
+        
+        local_file_path = self.directory_path+"/"+result[0]['data']  # Assuming you want the first item in the list
+        s3_file_name = f'{projectid}-{local_file_path.split("/")[-1]}.mp4'  # New name for the file in S3
 
         # Step 1: Upload the file to S3
         s3_client = boto3.client(
             's3',
-            region_name='us-east-2',  # e.g., 'us-east-1'
-            aws_access_key_id='',
-            aws_secret_access_key=''
+            region_name=self.region_name,
+            aws_access_key_id=self.aws_access_key_id,
+            aws_secret_access_key=self.aws_secret_access_key
         )
-
         s3_client.meta.events.register('before-send.s3.*', self._patch_headers)
-
-        s3_client.upload_file(local_file_path, bucket_name, s3_file_name)
-
+        s3_client.upload_file(local_file_path, self.bucket_name, s3_file_name)
         print(f"File uploaded successfully to S3 as {s3_file_name}.")
 
         s3_file_path = f'https://{bucket_name}.s3.amazonaws.com/{s3_file_name}'
