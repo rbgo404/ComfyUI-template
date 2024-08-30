@@ -66,13 +66,13 @@ INPUT_SCHEMA = {
         'example': [5]
     },
     "hires_upscale": {
-        'datatype': 'FP16',
+        'datatype': 'FP32',
         'required': True,
         'shape': [1],
         'example': [1.2]
     },
     "hires_denoise": {
-        'datatype': 'FP16',
+        'datatype': 'FP32',
         'required': True,
         'shape': [1],
         'example': [0.56]
