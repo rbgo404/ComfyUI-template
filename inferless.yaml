@@ -37,6 +37,6 @@ optional:
   input_file_name: input.json
   output_file_name: output.json
   runtime_file_name: inferless-runtime-config.yaml
-model_url: https://github.com/inferless/pyannote-speaker-diarization-3.1.git
+model_url: https://github.com/rbgo404/ComfyUI-template.git
 provider: GITHUB
 io_schema: true
