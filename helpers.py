@@ -13,8 +13,8 @@ import time
 import requests
 from PIL import Image
         
-COMFYUI_DIR = "/var/nfs-mount/ComfyUI-VOL/ComfyUI"
-# COMFYUI_DIR = f"{os.getenv('NFS_VOLUME')}/ComfyUI"
+
+COMFYUI_DIR = f"{os.getenv('NFS_VOLUME')}/ComfyUI"
 BASE64_PREAMBLE = "data:image/png;base64,"
 
 
