@@ -106,7 +106,7 @@ class InferlessPythonModel:
         result = []
         for node_id in outputs:
             for item in outputs[node_id]:
-                file_name = self.directory_path+item.get("filename")
+                file_name = self.directory_path+""/ComfyUI/output/"+item.get("filename")
                 file_data = item.get("data")
                 print('file_name, file_data', file_name, file_data)
                 output = convert_outputs_to_base64(
