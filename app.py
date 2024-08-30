@@ -78,6 +78,15 @@ class InferlessPythonModel:
 
     def infer(self, inputs):
         project_id = inputs.pop("project_id")
+        inputs["hires_upscale"] = float(inputs["hires_upscale"])
+        inputs["hires_denoise"] = float(inputs["hires_denoise"])
+        inputs["frame_load_cap"] = int(inputs["frame_load_cap"])
+        inputs["input_width"] = int(inputs["input_width"])
+        inputs["input_height"] = int(inputs["input_height"])
+        inputs["output_width"] = int(inputs["output_width"])
+        inputs["output_height"] = int(inputs["output_height"])
+        inputs["hires_steps"] = int(inputs["hires_steps"])
+        inputs["seed"] = int(inputs["seed"])
         
         template_values, tempfiles = convert_request_file_url_to_path(inputs)
         json_workflow = copy.deepcopy(self.json_workflow)
