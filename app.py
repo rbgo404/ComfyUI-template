@@ -54,7 +54,7 @@ class InferlessPythonModel:
         run_comfyui_in_background()
 
         with open(
-            os.path.join(self._data_dir,"comfy_ui_workflow.json"), "r"
+            os.path.join(self._data_dir,"comfy_ui_workflow.json"), "rb"
         ) as json_file:
             self.json_workflow = json.load(json_file)
         socket_connected = False
