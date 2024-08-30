@@ -34,8 +34,7 @@ def run_comfyui_in_background():
 
 class InferlessPythonModel:
     def initialize(self):
-        self.directory_path = "/var/nfs-mount/ComfyUI-VOL"
-        
+        self.directory_path = os.getenv('NFS_VOLUME')
         self.bucket_name = os.getenv('BUCKET_NAME')
         self.bucket_region = os.getenv('BUCKET_REGION')        
         self.aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
