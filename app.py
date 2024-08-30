@@ -104,8 +104,6 @@ class InferlessPythonModel:
             file.close()
 
         result = []
-
-        print('outputs',outputs)
         for node_id in outputs:
             for item in outputs[node_id]:
                 file_name = self.directory_path+item.get("filename")
@@ -115,25 +113,19 @@ class InferlessPythonModel:
                     node_id=node_id, file_name=file_name, file_data=file_data
                 )
                 result.append(output)
-                # print('result', result)
-
-        #return {"result": result}
-        # result = [{'node_id': '449', 'data': 'ComfyUI/output/output_video_00001.mp4', 'format': 'mp4'}]        
         
-        local_file_path = self.directory_path+"/"+result[0]['data']  # Assuming you want the first item in the list
-        s3_file_name = f'{project_id}-{local_file_path.split("/")[-1]}.mp4'  # New name for the file in S3
+        local_file_path = result[0]['data']
+        file_extension = os.path.splitext(local_file_path)[-1].lower()
 
-        # Step 1: Upload the file to S3
-        s3_client = boto3.client(
-            's3',
-            region_name=self.region_name,
-            aws_access_key_id=self.aws_access_key_id,
-            aws_secret_access_key=self.aws_secret_access_key
-        )
-        s3_client.meta.events.register('before-send.s3.*', self._patch_headers)
-        s3_client.upload_file(local_file_path, self.bucket_name, s3_file_name)
-        print(f"File uploaded successfully to S3 as {s3_file_name}.")
+        if file_extension in ['.mp4', '.jpg', '.png', '.gif']:
+            s3_file_name = f'{project_id}.{file_extension}'
+            s3_client = boto3.client('s3',region_name = self.bucket_region,aws_access_key_id = self.aws_access_key_id,
+                                     aws_secret_access_key=self.aws_secret_access_key)
+            s3_client.meta.events.register('before-send.s3.*', self._patch_headers)
+            s3_client.upload_file(local_file_path, self.bucket_name, s3_file_name)
+            s3_file_path = f'https://{self.bucket_name}.s3.amazonaws.com/{s3_file_name}'
 
-        s3_file_path = f'https://{bucket_name}.s3.amazonaws.com/{s3_file_name}'
+            return {"s3_file_path":s3_file_path}
 
-        return {"s3_file_path":s3_file_path}
+        else:
+            return {"error":"File type is not supported"}
