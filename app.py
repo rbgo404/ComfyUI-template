@@ -34,7 +34,7 @@ def run_comfyui_in_background():
 
 class InferlessPythonModel:
     def initialize(self):
-        directory_path = "/var/nfs-mount/ComfyUI-vol/ComfyUI"
+        directory_path = "/var/nfs-mount/ComfyUI-VOL/ComfyUI"
         
         if not os.path.exists(directory_path):
             subprocess.run(["wget", "https://github.com/rbgo404/Files/raw/main/build.sh"])
