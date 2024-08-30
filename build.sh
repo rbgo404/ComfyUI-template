@@ -1,4 +1,4 @@
-cd /var/nfs-mount/ComfyUI-VOL
+cd /var/nfs-mount/COMFY-2
 pwd
 git clone https://github.com/comfyanonymous/ComfyUI.git && cd ComfyUI && git pull
 pwd
