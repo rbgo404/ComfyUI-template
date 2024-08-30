@@ -1,0 +1,9 @@
+build:
+  system_packages:
+    - "wget"
+    - "ffmpeg"
+    - "libgl1-mesa-glx"
+  python_packages:
+    - "websocket-client==1.6.4"
+    - "accelerate==0.23.0"
+    - "opencv-python"
