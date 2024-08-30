@@ -1,4 +1,4 @@
-<img width="1083" alt="image" src="https://github.com/user-attachments/assets/299345fc-7b4b-486b-b688-4d1f9e051c9e"># Model Template - Deploy Comfy-UI using Inferless
+# Model Template - Deploy Comfy-UI using Inferless
 Deploy Comfy-UI using Inferless.
 
 ### Fork the Repository
