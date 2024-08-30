@@ -16,7 +16,7 @@ configuration:
   # if you want to use a custom volume, add the volume id and name below,
   # you can find it by running `inferless volume list` or create one with `inferless volume create -n {VOLUME_NAME}`
   # NOTE: this is not yet supported for Serverless
-  custom_volume_id: '2a418c21-597f-42e0-b88b-85327c5619d6'
+  custom_volume_id: ''
   custom_volume_name: ''
 
   gpu_type: A100
@@ -28,7 +28,7 @@ configuration:
   scale_down_delay: '600'
 env:
   # Add your environment variables here
-  VOLUME_NFS: '/var/nfs-mount/ComfyUI-VOL'
+  VOLUME_NFS: '/var/nfs-mount/COMFY-2'
 secrets:
   # Add your secret ids here you can find it by running `inferless secrets list`
   # - 65723205-ce21-4392-a10b-3tf00c58988c
