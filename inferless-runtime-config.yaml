@@ -8,3 +8,4 @@ build:
     - "accelerate==0.23.0"
     - "opencv-python"
     - "boto3"
+    - "pillow"
