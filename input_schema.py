@@ -4,6 +4,12 @@ INPUT_SCHEMA = {
         'required': True,
         'shape': [1],
         'example': ["https://sukuru.s3.amazonaws.com/videos/db76940a-db5f-4578-8f87-9db41af32647.MP4"]
+    }
+    "project_id": {
+        'datatype': 'STRING',
+        'required': True,
+        'shape': [1],
+        'example': ["Inferless_"]
     },
     "frame_load_cap": {
         'datatype': 'INT8',
