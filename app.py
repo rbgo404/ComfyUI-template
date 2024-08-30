@@ -78,30 +78,10 @@ class InferlessPythonModel:
         request.headers.pop('Expect', None)
 
     def infer(self, inputs):
-
-        template_values = {
-                            'input_video_url': 'https://sukuru.s3.amazonaws.com/videos/db76940a-db5f-4578-8f87-9db41af32647.MP4',
-                            'frame_load_cap': 60,
-                            'input_width': 360,
-                            'input_height': 640,
-                            'prompt_styler': '(ultra high res:1.4), (masterpiece), (beautiful lighting:1.4) , Bright sunlight illuminates , (mesmerizing:1.5), colorful, vibrant,',
-                            'ipadapter_image_url': 'https://sukuru.s3.amazonaws.com/custom_themes_main/Flowers/purple-lilac.jpg',
-                            'checkpoint': 'dreamshaper_8.safetensors',
-                            'input_prompt': 'purple lilacs, vibrant, dense, natural, fresh, close-up, detailed petals, bright colors',
-                            'output_width': 720,
-                            'output_height': 1280,
-                            'hires_steps': 5,
-                            'hires_upscale': 1.2,
-                            'hires_denoise': 0.56,
-                            'seed': 4566245810894214660
-                            }
-        
-        template_values, tempfiles = convert_request_file_url_to_path(template_values)
+        project_id = inputs.pop("project_id")
+        template_values, tempfiles = convert_request_file_url_to_path(inputs)
         json_workflow = copy.deepcopy(self.json_workflow)
         json_workflow = fill_template(json_workflow, template_values)
-        print(json_workflow)
-
-        # should send the image here 
 
         try:
             outputs = get_images(
@@ -129,12 +109,10 @@ class InferlessPythonModel:
                 # print('result', result)
 
         #return {"result": result}
-
-        projectid = str("inferless")
         # result = [{'node_id': '449', 'data': 'ComfyUI/output/output_video_00001.mp4', 'format': 'mp4'}]        
         
         local_file_path = self.directory_path+"/"+result[0]['data']  # Assuming you want the first item in the list
-        s3_file_name = f'{projectid}-{local_file_path.split("/")[-1]}.mp4'  # New name for the file in S3
+        s3_file_name = f'{project_id}-{local_file_path.split("/")[-1]}.mp4'  # New name for the file in S3
 
         # Step 1: Upload the file to S3
         s3_client = boto3.client(
