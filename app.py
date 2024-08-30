@@ -40,7 +40,7 @@ class InferlessPythonModel:
             subprocess.run(["wget", "https://github.com/rbgo404/Files/raw/main/build.sh"])
             subprocess.run(["bash", "build.sh"], check=True)
         
-        self._data_dir = "/var/nfs-mount/ComfyUI-vol/data"
+        self._data_dir = "/var/nfs-mount/ComfyUI-VOL/data"
         self._model = None
         self.ws = None
         self.json_workflow = None
