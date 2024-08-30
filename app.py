@@ -123,9 +123,9 @@ class InferlessPythonModel:
                                      aws_secret_access_key=self.aws_secret_access_key)
             s3_client.meta.events.register('before-send.s3.*', self._patch_headers)
             s3_client.upload_file(local_file_path, self.bucket_name, s3_file_name)
-            s3_file_path = f'https://{self.bucket_name}.s3.amazonaws.com/{s3_file_name}'
+            s3_file_path = f's3://{self.bucket_name}.s3.amazonaws.com/{s3_file_name}'
 
-            return {"s3_file_path":s3_file_path}
+            return {"S3_URI":s3_file_path}
 
         else:
             return {"error":"File type is not supported"}
