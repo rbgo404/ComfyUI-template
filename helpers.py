@@ -224,7 +224,7 @@ def convert_outputs_to_base64(node_id, file_name, file_data=None):
         if file_type == "gif":
             return {
                 "node_id": node_id,
-                "data": gif_to_base64(filepath),
+                "data": filepath,
                 "format": file_type,
             }
         elif file_type == "mp4":
@@ -236,11 +236,11 @@ def convert_outputs_to_base64(node_id, file_name, file_data=None):
             }
         elif file_type in {"png", "jpeg", "jpg"}:
             image = Image.open(filepath)
-            return {"node_id": node_id, "data": pil_to_b64(image), "format": file_type}
+            return {"node_id": node_id, "data": filepath, "format": file_type}
     else:
         image = Image.open(io.BytesIO(file_data))
         b64_img = pil_to_b64(image)
-        return {"node_id": node_id, "data": b64_img, "format": "png"}
+        return {"node_id": node_id, "data": filepath, "format": "png"}
 
 
 def gif_to_base64(file_path):
