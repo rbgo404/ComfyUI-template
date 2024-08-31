@@ -1,4 +1,4 @@
-cd <YOUR_NFS_Mount_Path>
+cd /var/nfs-mount/ComfyUI-VOL
 pwd
 git clone https://github.com/comfyanonymous/ComfyUI.git && cd ComfyUI && git pull
 pwd
