@@ -1,12 +1,9 @@
 cd <YOUR_NFS_Mount_Path>
-pwd
 git clone https://github.com/comfyanonymous/ComfyUI.git && cd ComfyUI && git pull
-pwd
 pip install -r requirements.txt
 pip install xformers numba spandrel deepdiff boto3
 cd models && mkdir -p ipadapter clip_vision animatediff_models
 cd ..
-pwd
 cd custom_nodes
 git clone https://github.com/Kosinkadink/ComfyUI-AnimateDiff-Evolved --recursive 
 git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite --recursive && cd ComfyUI-VideoHelperSuite && pip install -r requirements.txt
@@ -40,9 +37,7 @@ cd ..
 git clone https://github.com/sipherxyz/comfyui-art-venture.git --recursive && cd comfyui-art-venture && pip install -r requirements.txt
 cd ..
 cd ..
-pwd
 cd models
-pwd
 wget -O vae/vae-ft-mse-840000-ema-pruned.safetensors https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors
 wget -O checkpoints/dreamshaper_8.safetensors https://civitai.com/api/download/models/128713?type=Model&format=SafeTensor&size=pruned&fp=fp16&token=fc327fd702a67e653369455b3a5e7d5c
 wget -O ipadapter/ip-adapter-plus_sd15.safetensors https://huggingface.co/h94/IP-Adapter/resolve/main/models/ip-adapter-plus_sd15.safetensors
@@ -53,11 +48,9 @@ wget -O animatediff_models/AnimateLCM_sd15_t2v.ckpt https://huggingface.co/wangf
 wget -O controlnet/control_v1p_sd15_qrcode_monster.safetensors https://huggingface.co/monster-labs/control_v1p_sd15_qrcode_monster/resolve/main/control_v1p_sd15_qrcode_monster.safetensors
 mkdir -p controlnet/SD1.5/animatediff
 wget -O controlnet/SD1.5/animatediff/v3_sd15_sparsectrl_rgb.ckpt https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_sparsectrl_rgb.ckpt
-pwd
 wget -O upscale_models/2x-AniScale.pth https://objectstorage.us-phoenix-1.oraclecloud.com/n/ax6ygfvpvzka/b/open-modeldb-files/o/2x-AniScale.pth
 wget -O embeddings/easynegative.safetensors https://civitai.com/api/download/models/9208?type=Model&format=SafeTensor&size=full&fp=fp16&token=fc327fd702a67e653369455b3a5e7d5c
 wget -O loras/add_detail.safetensors https://civitai.com/api/download/models/62833?type=Model&format=SafeTensor&token=fc327fd702a67e653369455b3a5e7d5c
-pwd
 cd ..
 cd ..
 mkdir data
